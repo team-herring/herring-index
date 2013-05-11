@@ -1,7 +1,7 @@
 package org.herring.index.column.index;
 
 import org.herring.file.writer.FileWriter;
-import org.herring.file.writer.FileWriterRandomAccess;
+import org.herring.file.writer.FileWriterWritableByteChannel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +26,7 @@ public class IndexTableSimpleTest {
 
     @Before
     public void setUp() throws Exception {
-        writer = mock(FileWriterRandomAccess.class);
+        writer = mock(FileWriterWritableByteChannel.class);
         indexTable = new IndexTableSimple(writer);
     }
 

@@ -1,7 +1,7 @@
 package org.herring.index.column.keyword;
 
 import org.herring.file.writer.FileWriter;
-import org.herring.file.writer.FileWriterRandomAccess;
+import org.herring.file.writer.FileWriterWritableByteChannel;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -100,7 +100,7 @@ public class KeyWorderMemoryTest {
 
     @Test
     public void testSave() throws Exception {
-        FileWriter fileWriter = mock(FileWriterRandomAccess.class);
+        FileWriter fileWriter = mock(FileWriterWritableByteChannel.class);
 
         this.keyWorder.appendKeyword(keyword);
         this.keyWorder.appendKeyword(keyword2);
