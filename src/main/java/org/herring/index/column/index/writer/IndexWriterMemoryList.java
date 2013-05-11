@@ -1,7 +1,7 @@
 package org.herring.index.column.index.writer;
 
 import org.apache.log4j.Logger;
-import org.herring.index.config.ColumnConfig;
+import org.herring.context.ColumnConfig;
 import org.herring.file.writer.FileWriter;
 import org.herring.index.column.index.Index;
 

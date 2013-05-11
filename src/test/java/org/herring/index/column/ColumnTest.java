@@ -1,8 +1,8 @@
 package org.herring.index.column;
 
 import org.herring.index.column.index.Index;
-import org.herring.index.column.index.IndexTable;
-import org.herring.index.column.index.IndexTableMemoryList;
+import org.herring.index.column.index.writer.IndexWriter;
+import org.herring.index.column.index.writer.IndexWriterMemoryList;
 import org.herring.index.column.keyword.KeywordTableMemoryList;
 import org.herring.index.column.keyword.KeywordTable;
 import org.junit.Before;
@@ -28,7 +28,7 @@ public class ColumnTest {
     private List<String> datas;
     private String directory = "test";
     private String name = "test";
-    private IndexTable indexTable;
+    private IndexWriter indexWriter;
     private KeywordTable keywordTable;
 
     @Before
@@ -36,14 +36,14 @@ public class ColumnTest {
         datas = new ArrayList<String>();
         datas.add("GET");
         datas.add("POST");
-        indexTable = mock(IndexTableMemoryList.class);
+        indexWriter = mock(IndexWriterMemoryList.class);
         keywordTable = mock(KeywordTableMemoryList.class);
-        column = new Column(directory, name, indexTable, keywordTable);
+        column = new Column(directory, name, indexWriter, keywordTable);
     }
 
     @Test
     public void testCreate() throws Exception {
-        when(indexTable.load(directory, name)).thenReturn(true);
+        when(indexWriter.save(directory, name)).thenReturn(true);
 
         boolean isSuccess = column.create(datas);
         assertTrue(isSuccess);
@@ -53,12 +53,12 @@ public class ColumnTest {
     public void testFindIndexs() throws Exception {
         String keyword = "GET";
 
-        when(indexTable.load(directory, name)).thenReturn(true);
+        when(indexWriter.save(directory, name)).thenReturn(true);
         column.create(datas);
 
         Index index = new Index(keyword, (long)0);
         when(keywordTable.get(keyword)).thenReturn((long) 0);
-        when(indexTable.findIndexByKeyWord(""+0)).thenReturn(index);
+        when(indexWriter.findIndexByKeyWord(""+0)).thenReturn(index);
 
         List<Long> indexs = column.findIndexs(keyword);
 

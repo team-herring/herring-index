@@ -4,11 +4,17 @@ import org.herring.index.HerringColumnIndex;
 import org.herring.index.column.ColumnTable;
 import org.herring.index.row.Row;
 import org.herring.index.row.RowTable;
+import org.herring.utils.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
+
 import java.io.File;
+import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
+
+import static junit.framework.TestCase.assertNotNull;
 
 /**
  * Description.
@@ -24,34 +30,47 @@ public class HerringColumnIndexTest {
 
 
     @Before
-    public void before(){
-        herringColumnIndex=new HerringColumnIndex(name);
+    public void before() {
+        herringColumnIndex = new HerringColumnIndex(name);
     }
 
     @Test
-    public void testAddFile(){
-        herringColumnIndex.addFile(new File(""));
+    public void testAddFile() {
     }
 
     @Test
-    public void testAddList(){
-        List<String> list = new ArrayList<String>();
-        herringColumnIndex.addList(list);
+    public void testAddList() throws Exception {
+        Scanner scanner = new Scanner(new FileInputStream("logs/ex130415.log"));
+
+        FileUtils.removeDirectory(new File(name));
+
+        ArrayList<String> date = new ArrayList<String>();
+        while (scanner.hasNext()) {
+            String row = scanner.nextLine();
+            date.add(row.split(" ")[1]);
+        }
+        herringColumnIndex.addList(date, "time");
     }
 
     @Test
-    public void find(){
-        String word = "";
+    public void find() throws Exception {
+        testAddList();
+
+        String word = "00:00:50";
         List<Long> indexs = herringColumnIndex.find(word);
+        assertNotNull(indexs);
+        for (Long index : indexs) {
+            System.out.println(index);
+        }
     }
 
     @Test
-    public void merge(){
+    public void merge() {
         herringColumnIndex.merge();
     }
 
     @Test
-    public void findRows(){
+    public void findRows() {
         String word = "";
         List<Row> rows = herringColumnIndex.findRows(word);
     }

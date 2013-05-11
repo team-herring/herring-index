@@ -1,8 +1,8 @@
 package org.herring.analysis.dispacher;
 
 import org.herring.index.column.Column;
-import org.herring.index.column.index.IndexTable;
-import org.herring.index.column.index.IndexTableMemoryList;
+import org.herring.index.column.index.writer.IndexWriter;
+import org.herring.index.column.index.writer.IndexWriterMemoryList;
 import org.herring.index.column.keyword.KeywordTable;
 import org.herring.index.column.keyword.KeywordTableMemoryList;
 import org.herring.context.ColumnContext;
@@ -25,9 +25,9 @@ public class ColumnDispacherSimple implements ColumnDispacher<String> {
     }
 
     private Column createColumn(String date, String name, List<String> datas) throws Exception {
-        IndexTable indexTable = new IndexTableMemoryList(new FileWriterFileChannel());
+        IndexWriter indexWriter = new IndexWriterMemoryList(new FileWriterFileChannel());
         KeywordTable keywordTable = new KeywordTableMemoryList();
-        Column column = new Column(date, name, indexTable, keywordTable);
+        Column column = new Column(date, name, indexWriter, keywordTable);
         column.create(datas);
         column.save(new FileWriterFileChannel());
         return column;

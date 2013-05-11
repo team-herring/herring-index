@@ -2,6 +2,8 @@ package org.herring.index.column.index;
 
 import org.herring.file.writer.FileWriter;
 import org.herring.file.writer.FileWriterWritableByteChannel;
+import org.herring.index.column.index.writer.IndexWriter;
+import org.herring.index.column.index.writer.IndexWriterSimple;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,27 +22,27 @@ import static org.mockito.Mockito.when;
  * @author Youngdeok Kim
  * @since 1.0
  */
-public class IndexTableSimpleTest {
-    private IndexTable indexTable;
+class IndexWriterSimpleTest {
+    private IndexWriter indexWriter;
     private FileWriter writer;
+    String directory = "201304222020";
+    String name = "test";
 
     @Before
     public void setUp() throws Exception {
         writer = mock(FileWriterWritableByteChannel.class);
-        indexTable = new IndexTableSimple(writer);
+        indexWriter = new IndexWriterSimple(writer);
     }
 
     @After
     public void tearDown() throws Exception {
-        indexTable.discard();
+        indexWriter.discard();
     }
 
     @Test
-    public void testLoad() throws Exception {
-        String directory = "201304222020";
-        String name = "test";
+    public void testSave() throws Exception {
         when(writer.createFile(directory, name)).thenReturn(true);
-        boolean success = indexTable.save(directory, name);
+        boolean success = indexWriter.save(directory, name);
         assertTrue(success);
     }
 
@@ -49,9 +51,9 @@ public class IndexTableSimpleTest {
         String key = "3";
         when(writer.appendLine(key)).thenReturn((long) 0);
 
-        long beforeSize = indexTable.size();
-        long indexLine = indexTable.appendKeyWord(key);
-        long afterSize = indexTable.size();
+        long beforeSize = indexWriter.size();
+        long indexLine = indexWriter.appendKeyWord(key);
+        long afterSize = indexWriter.size();
 
         assertThat(indexLine, is((long) 0));
         assertThat(afterSize, greaterThan(beforeSize));
@@ -62,14 +64,12 @@ public class IndexTableSimpleTest {
         String key = "3";
         long location = 0;
         when(writer.appendLine(key)).thenReturn(location);
-        indexTable.appendKeyWord(key);
+        indexWriter.appendKeyWord(key);
 
-        Index index = indexTable.findIndexByKeyWord(key);
+        Index index = indexWriter.findIndexByKeyWord(key);
 
         assertEquals(key, index.getKeyword());
         assertEquals(1, index.getIndexs().size());
         assertEquals(location, (long) index.getIndexs().get(0));
     }
-
-
 }
