@@ -43,4 +43,8 @@ public class HerringColumnIndex {
     public List<Row> findRows(String word) {
         return null;
     }
+
+    public void destroy(){
+        columnTable.destroy();
+    }
 }

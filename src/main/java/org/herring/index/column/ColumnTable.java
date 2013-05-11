@@ -18,4 +18,10 @@ public class ColumnTable {
     public Column get(int index){
         return columns.get(index);
     }
+
+    public void destroy(){
+        for (Column column : columns) {
+            column.close();
+        }
+    }
 }
