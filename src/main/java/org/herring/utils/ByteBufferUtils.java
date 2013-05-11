@@ -27,8 +27,8 @@ public class ByteBufferUtils {
     }
 
     public static ByteBuffer toBytes(String str) {
-        ByteBuffer bbuf = ByteBuffer.wrap(str.getBytes());
-        return bbuf;
+        ByteBuffer buf = ByteBuffer.wrap(str.getBytes());
+        return buf;
     }
 
     public static String toString(byte[] buff) {
