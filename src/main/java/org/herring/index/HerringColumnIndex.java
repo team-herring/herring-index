@@ -10,10 +10,7 @@ import org.herring.index.column.keyword.KeywordTable;
 import org.herring.index.column.keyword.KeywordTableMemoryList;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 로컬 모드에서 Herring-index를 사용하기 위한 클래스.
@@ -48,11 +45,10 @@ public class HerringColumnIndex {
         List<Long> indexs = column.findIndexs(word);
         resultMap.put(columnName, column.findWords(indexs));
 
-
         List<String> columnNames = getColumnNames();
         for (String name : columnNames) {
             Column otherColumn = findAndCreate(name);
-            resultMap.put(columnName, otherColumn.findWords(indexs));
+            resultMap.put(name, otherColumn.findWords(indexs));
         }
         return resultMap;
     }
@@ -76,8 +72,8 @@ public class HerringColumnIndex {
         File file = new File(date);
         String[] strs = file.list();
         for (String str : strs) {
-            String[] names = str.split(".");
-            if (names[1].equals("index")){
+            String[] names = str.split("\\.");
+            if (names[1].equals("index")) {
                 results.add(names[0]);
             }
         }

@@ -1,16 +1,11 @@
 package org.herring;
 
 import org.herring.index.HerringColumnIndex;
-import org.herring.index.column.ColumnTable;
-import org.herring.index.row.RowTable;
-import org.herring.utils.FileUtils;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Description.
@@ -20,43 +15,36 @@ import java.util.Scanner;
  */
 public class HerringColumnIndexTest {
     private HerringColumnIndex herringColumnIndex;
-    private String name = "test";
-    private RowTable rowTable;
-    private ColumnTable columnTable;
-
+    private String date = "20130430";
 
     @Before
     public void before() {
-        herringColumnIndex = new HerringColumnIndex(name);
+        herringColumnIndex = new HerringColumnIndex(date);
     }
 
-    @Test
-    public void testAddFile() {
-    }
-
-    @Test
-    public void testAddList() throws Exception {
-        Scanner scanner = new Scanner(new FileInputStream("logs/ex130415.log"));
-
-        FileUtils.removeDirectory(new File(name));
-
-        ArrayList<String> date = new ArrayList<String>();
-        while (scanner.hasNext()) {
-            String row = scanner.nextLine();
-            date.add(row.split(" ")[1]);
-        }
-        herringColumnIndex.addList(date, "time");
-    }
+//    @Test
+//    public void testAddList() throws Exception {
+//        Scanner scanner = new Scanner(new FileInputStream("logs/ex130415.log"));
+//
+//        FileUtils.removeDirectory(new File(date));
+//
+//        ArrayList<String> date = new ArrayList<String>();
+//        while (scanner.hasNext()) {
+//            String row = scanner.nextLine();
+//            date.add(row.split(" ")[1]);
+//        }
+//        herringColumnIndex.addList(date, "time");
+//    }
 
     @Test
     public void find() throws Exception {
-        testAddList();
+//        testAddList();
+        HerringColumnIndex herringColumnIndex = new HerringColumnIndex(date);
+        Map<String,List<String>> result = herringColumnIndex.find("00:00:50", "time");
 
-//        String word = "00:00:50";
-//        List<Long> indexs = herringColumnIndex.find(word);
-//        assertNotNull(indexs);
-//        for (Long index : indexs) {
-//            System.out.println(index);
-//        }
+        List<String> time = result.get("time");
+        for (int i = 0; i < time.size(); i++) {
+            System.out.println(time.get(i) +"  "+result.get("url").get(i));
+        }
     }
 }
