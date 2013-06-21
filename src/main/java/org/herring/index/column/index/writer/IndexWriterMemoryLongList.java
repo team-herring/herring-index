@@ -29,6 +29,9 @@ public class IndexWriterMemoryLongList implements IndexWriter<Long> {
         this.writer = writer;
         LOG.info("created IndexWriterMemoryList");
     }
+    public IndexWriterMemoryLongList(List<IndexLong> indexs) {
+            this.indexs = indexs;
+    }
 
     @Override
     public boolean save(String directory, String name) throws IOException {

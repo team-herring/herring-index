@@ -27,6 +27,10 @@ public class ColumnLong implements Column {
     }
 
     @Override
+    public void load() {
+    }
+
+    @Override
     public boolean create(List<String> datas) throws Exception {
         boolean isSuccess = indexWriter.save(directory, name);
         if( !isSuccess)

@@ -16,37 +16,37 @@ import java.util.List;
  * @author Youngdeok Kim
  * @since 1.0
  */
-public class FileReaderFileLongChannel implements FileReader<Long> {
-    private static final Logger LOG = Logger.getLogger(FileReaderFileLongChannel.class);
+public class FileReaderFileStringChannel implements FileReader<String> {
+    private static final Logger LOG = Logger.getLogger(FileReaderFileStringChannel.class);
     private File file;
     private RandomAccessFile raf;
     private FileChannel channel;
 
 
-    public FileReaderFileLongChannel(File file) throws FileNotFoundException {
+    public FileReaderFileStringChannel(File file) throws FileNotFoundException {
         this.file = file;
         raf = new RandomAccessFile(file, "r");
         channel = raf.getChannel();
     }
 
     @Override
-    public List<Long> load() throws Exception {
-        List<Long> results = new ArrayList<Long>();
+    public List<String> load() throws Exception {
+        List<String> results = new ArrayList<String>();
         while(true){
-            Long data = raf.readLong();
-            if (data == null)
+            String line = raf.readLine();
+            if(line == null)
                 break;
-            results.add(data);
+            results.add(line);
         }
         return results;
     }
 
     @Override
-    public List<Long> findByIndex(List<Long> indexs) throws Exception {
-        List<Long> results = new ArrayList<Long>();
+    public List<String> findByIndex(List<Long> indexs) throws Exception {
+        List<String> results = new ArrayList<String>();
         for (Long index : indexs) {
-            raf.seek(index * 8);
-            results.add(raf.readLong());
+            raf.seek(index*8);
+            results.add(raf.readLine());
         }
         return results;
     }
@@ -54,15 +54,15 @@ public class FileReaderFileLongChannel implements FileReader<Long> {
     @Override
     public void close() {
         try {
-            if (raf != null)
+            if(raf != null)
                 raf.close();
-            if (raf != null)
+            if(raf != null)
                 channel.close();
         } catch (IOException e) {
             try {
-                if (raf != null)
+                if(raf != null)
                     raf.close();
-                if (raf != null)
+                if(raf != null)
                     channel.close();
             } catch (IOException e1) {
                 LOG.error(e1.getStackTrace());

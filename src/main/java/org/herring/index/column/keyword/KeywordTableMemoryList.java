@@ -25,6 +25,10 @@ public class KeywordTableMemoryList implements KeywordTable {
         LOG.info("created KeywordTableMemoryList");
         this.keywords = new ArrayList<String>();
     }
+    public KeywordTableMemoryList(List<String> keywords) {
+            LOG.info("created KeywordTableMemoryList");
+            this.keywords = keywords;
+    }
 
     @Override
     public Long appendKeyword(String keyword) {

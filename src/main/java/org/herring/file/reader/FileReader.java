@@ -1,5 +1,7 @@
 package org.herring.file.reader;
 
+import java.util.List;
+
 /**
  * Created with IntelliJ IDEA.
  * User: 영덕
@@ -7,7 +9,8 @@ package org.herring.file.reader;
  * Time: 오후 11:33
  * To change this template use File | Settings | File Templates.
  */
-public interface FileReader {
-    String findByIndex(long index) throws Exception;
+public interface FileReader<T> {
+    List<T> load() throws Exception;
+    List<T> findByIndex(List<Long> index) throws Exception;
     void close();
 }
