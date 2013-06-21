@@ -34,9 +34,9 @@ public class IndexWriterMemoryLongList implements IndexWriter<Long> {
         for (int i = 0; i < values.size(); i++) {
             Index index = findKeyword(values.get(i));
             if (index == null)
-                indexs.add(new IndexLong(values.get(i), (long)i));
+                indexs.add(new IndexLong(values.get(i), (long)i+1));
             else
-                index.appendIndex((long) i);
+                index.appendIndex((long) i+1);
         }
     }
 
