@@ -29,7 +29,7 @@ public class FileReaderFileLongChannel implements FileReader {
 
     @Override
     public String findByIndex(long index) throws IOException {
-        raf.seek(index);
+        raf.seek(index*8);
         return raf.readLine();
     }
 

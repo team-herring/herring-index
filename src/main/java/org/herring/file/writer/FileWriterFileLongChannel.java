@@ -60,6 +60,7 @@ public class FileWriterFileLongChannel implements FileWriter<Long>{
             raf = new RandomAccessFile(this.file, "rw");
             channel = raf.getChannel();
         }
+        buf.flip();
         channel.write(buf);
         return appendRowSize++;
     }

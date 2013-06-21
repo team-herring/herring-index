@@ -112,17 +112,9 @@ public class CoumnLogTest {
         Column column = map.get("time");
         List<Long> indexs = column.findIndexs("00:00:50");
         System.out.println(indexs);
-//        for (Long index : indexs) {
-//            System.out.println(index);
-//        }
 
-//        FileReader reader = new FileReaderFileChannel(new File("logs/ex130415.log"));
-//        for (Long index : indexs) {
-//            String result = reader.findByIndex(index);
-//            System.out.println(result);
-//        }
+
         long end = System.currentTimeMillis();
-
         System.out.println(end -start);
 
     }
@@ -137,6 +129,7 @@ public class CoumnLogTest {
         Column column = new ColumnLong(date, name, indexWriter, keywordTable);
         column.create(datas);
         column.save(new FileWriterWritableByteChannel());
+        column.close();
         return column;
     }
 }
