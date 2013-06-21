@@ -6,6 +6,7 @@ import org.junit.Test;
 
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Description.
@@ -39,12 +40,14 @@ public class HerringColumnIndexTest {
     @Test
     public void find() throws Exception {
 //        testAddList();
+        long start3 = System.currentTimeMillis();
         HerringColumnIndex herringColumnIndex = new HerringColumnIndex(date);
         Map<String,List<String>> result = herringColumnIndex.find("00:00:50", "time");
-
-        List<String> time = result.get("time");
-        for (int i = 0; i < time.size(); i++) {
-            System.out.println(time.get(i) +"  "+result.get("url").get(i));
-        }
+        long end3 = System.currentTimeMillis();
+        System.out.println(TimeUnit.MILLISECONDS.toSeconds(end3 - start3));
+//        List<String> time = result.get("time");
+//        for (int i = 0; i < time.size(); i++) {
+//            System.out.println(time.get(i) +"  "+result.get("url").get(i));
+//        }
     }
 }

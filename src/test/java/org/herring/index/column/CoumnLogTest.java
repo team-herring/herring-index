@@ -100,7 +100,7 @@ public class CoumnLogTest {
 
         Column time1 = createColumn("20130430", "time", time);
         long end3 = System.currentTimeMillis();
-                System.out.println(TimeUnit.MILLISECONDS.toSeconds(end3 - start3));
+        System.out.println(TimeUnit.MILLISECONDS.toSeconds(end3 - start3));
 
         HashMap<String, Column> map = new HashMap<String, Column>();
         map.put("time", time1);

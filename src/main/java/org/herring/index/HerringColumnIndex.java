@@ -10,7 +10,10 @@ import org.herring.index.column.keyword.KeywordTable;
 import org.herring.index.column.keyword.KeywordTableMemoryList;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 로컬 모드에서 Herring-index를 사용하기 위한 클래스.
