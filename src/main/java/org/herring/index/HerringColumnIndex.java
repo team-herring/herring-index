@@ -43,15 +43,15 @@ public class HerringColumnIndex {
     }
 
     public Map<String, List<String>> find(String word, String columnName) throws Exception {
+        Map<String, List<String>> resultMap = new HashMap<String, List<String>>();
         Column column = findAndCreate(columnName);
         List<Long> indexs = column.findIndexs(word);
+        resultMap.put(columnName, column.findWords(indexs));
 
 
-        Map<String, List<String>> resultMap = new HashMap<String, List<String>>();
         List<String> columnNames = getColumnNames();
         for (String name : columnNames) {
             Column otherColumn = findAndCreate(name);
-            List<String> results = otherColumn.findWords(indexs);
             resultMap.put(columnName, column.findWords(indexs));
         }
         return resultMap;
