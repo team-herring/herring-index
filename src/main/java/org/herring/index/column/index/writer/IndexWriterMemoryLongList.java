@@ -3,11 +3,11 @@ package org.herring.index.column.index.writer;
 import org.apache.log4j.Logger;
 import org.herring.context.ColumnConfig;
 import org.herring.file.writer.FileWriter;
-import org.herring.index.column.index.IndexString;
+import org.herring.index.column.index.Index;
+import org.herring.index.column.index.IndexLong;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -17,15 +17,15 @@ import java.util.concurrent.atomic.AtomicLong;
  * @author Youngdeok Kim
  * @since 1.0
  */
-public class IndexWriterMemoryList implements IndexWriter<String> {
-    private static final Logger LOG = Logger.getLogger(IndexWriterMemoryList.class);
-    private List<IndexString> indexs;
-    private FileWriter writer;
+public class IndexWriterMemoryLongList implements IndexWriter<Long> {
+    private static final Logger LOG = Logger.getLogger(IndexWriterMemoryLongList.class);
+    private List<IndexLong> indexs;
+    private FileWriter<Long> writer;
     private AtomicLong currentIndex;
 
-    public IndexWriterMemoryList(FileWriter writer) {
+    public IndexWriterMemoryLongList(FileWriter<Long> writer) {
         this.currentIndex = new AtomicLong();
-        this.indexs = new ArrayList<IndexString>();
+        this.indexs = new ArrayList<IndexLong>();
         this.writer = writer;
         LOG.info("created IndexWriterMemoryList");
     }
@@ -38,26 +38,25 @@ public class IndexWriterMemoryList implements IndexWriter<String> {
     }
 
     @Override
-    public long appendKeyWord(String word) throws Exception {
+    public long appendKeyWord(Long word) throws Exception {
         long lineNumber = writer.appendLine(word);
 
-        IndexString index = findKeyword(word);
+        Index index = findKeyword(word);
         if (index == null)
-            indexs.add(new IndexString(word, lineNumber));
+            indexs.add(new IndexLong(word, lineNumber));
         else
             index.appendIndex(lineNumber);
         return currentIndex.get();
     }
 
-    private IndexString findKeyword(String word) {
-        int index = Collections.binarySearch(indexs, word);
-        if (index <= 0)
+    private Index findKeyword(Long word) {
+        if (indexs.size() <= word)
             return null;
-        return indexs.get(index);
+        return indexs.get(word.intValue());
     }
 
     @Override
-    public IndexString findIndexByKeyWord(String word) {
+    public Index findIndexByKeyWord(Long word) {
         return findKeyword(word);
     }
 

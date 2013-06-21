@@ -16,7 +16,7 @@ import java.nio.channels.WritableByteChannel;
  * @author  Youngdeok Kim
  * @since 1.0
  */
-public class FileWriterWritableByteChannel implements FileWriter {
+public class FileWriterWritableByteChannel implements FileWriter<String> {
     private static final Logger LOG = Logger.getLogger(FileWriterWritableByteChannel.class);
     private File file;
     private long appendRowSize = 0;

@@ -15,8 +15,8 @@ import java.nio.channels.FileChannel;
  * @author Youngdeok Kim
  * @since 1.0
  */
-public class FileWriterFileChannel implements FileWriter{
-    private static final Logger LOG = Logger.getLogger(FileWriterFileChannel.class);
+public class FileWriterFileChannel implements FileWriter<String>{
+    private static final Logger LOG = Logger.getLogger(FileWriterFileLongChannel.class);
     private File file;
     private RandomAccessFile raf;
     private long position;

@@ -10,10 +10,10 @@ import java.io.IOException;
  * @author Youngdeok Kim
  * @since 1.0
  */
-public interface IndexWriter {
+public interface IndexWriter<T> {
     public boolean save(String directory, String name) throws IOException;
-    long appendKeyWord(String keyword) throws Exception;
-    Index findIndexByKeyWord(String word);
+    long appendKeyWord(T keyword) throws Exception;
+    Index findIndexByKeyWord(T word);
     void discard();
     long size();
 }

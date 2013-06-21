@@ -15,7 +15,7 @@ import java.nio.ByteBuffer;
  * @since 1.0
  */
 public class FileWriterFileChaneelTest {
-    private FileWriterFileChannel writer;
+    private FileWriterFileLongChannel writer;
     private String fileName = "test";
     private static String directory = "test";
     File file = new File(directory);
@@ -24,7 +24,7 @@ public class FileWriterFileChaneelTest {
     public void testCreateFile() throws Exception {
         FileUtils.removeDirectory(file);
 
-        writer = new FileWriterFileChannel();
+        writer = new FileWriterFileLongChannel();
         writer.createFile(directory, fileName);
     }
 
@@ -35,10 +35,10 @@ public class FileWriterFileChaneelTest {
     }
     @Test
     public void testWrite() throws Exception {
-        ByteBuffer buf = ByteBuffer.wrap("aaaa\n".getBytes());
+        ByteBuffer buf = ByteBuffer.wrap("1\n".getBytes());
         System.out.println(writer.append(buf));
 
-        ByteBuffer buf2 = ByteBuffer.wrap("bbbb\n".getBytes());
+        ByteBuffer buf2 = ByteBuffer.wrap("0\n".getBytes());
         System.out.println(writer.append(buf2));
 
         writer.close();

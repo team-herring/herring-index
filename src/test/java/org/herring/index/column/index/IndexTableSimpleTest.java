@@ -70,6 +70,6 @@ class IndexWriterSimpleTest {
 
         assertEquals(key, index.getKeyword());
         assertEquals(1, index.getIndexs().size());
-        assertEquals(location, (long) index.getIndexs().get(0));
+        assertEquals(location, index.getIndexs().get(0));
     }
 }

@@ -1,9 +1,9 @@
 package org.herring.index.column;
 
-import org.herring.file.writer.FileWriterFileChannel;
+import org.herring.file.writer.FileWriterFileLongChannel;
 import org.herring.file.writer.FileWriterWritableByteChannel;
 import org.herring.index.column.index.writer.IndexWriter;
-import org.herring.index.column.index.writer.IndexWriterMemoryList;
+import org.herring.index.column.index.writer.IndexWriterMemoryLongList;
 import org.herring.index.column.keyword.KeywordTable;
 import org.herring.index.column.keyword.KeywordTableMemoryList;
 import org.herring.utils.FileUtils;
@@ -132,9 +132,9 @@ public class CoumnLogTest {
     }
 
     private Column createColumn(String date, String name, List<String> datas) throws Exception {
-        IndexWriter indexWriter = new IndexWriterMemoryList(new FileWriterFileChannel());
+        IndexWriter indexWriter = new IndexWriterMemoryLongList(new FileWriterFileLongChannel());
         KeywordTable keywordTable = new KeywordTableMemoryList();
-        Column column = new Column(date, name, indexWriter, keywordTable);
+        Column column = new ColumnLong(date, name, indexWriter, keywordTable);
         column.create(datas);
         column.save(new FileWriterWritableByteChannel());
         return column;

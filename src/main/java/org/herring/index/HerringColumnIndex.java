@@ -1,8 +1,8 @@
 package org.herring.index;
 
-import org.herring.file.writer.FileWriterFileChannel;
+import org.herring.file.writer.FileWriterFileLongChannel;
 import org.herring.file.writer.FileWriterWritableByteChannel;
-import org.herring.index.column.Column;
+import org.herring.index.column.ColumnString;
 import org.herring.index.column.ColumnTable;
 import org.herring.index.column.index.writer.IndexWriterMemoryList;
 import org.herring.index.column.keyword.KeywordTableMemoryList;
@@ -36,7 +36,7 @@ public class HerringColumnIndex {
     }
 
     public void addList(List<String> list, String columnName) throws Exception {
-        Column column = new Column(name, columnName, new IndexWriterMemoryList(new FileWriterFileChannel()), new KeywordTableMemoryList());
+        ColumnString column = new ColumnString(name, columnName, new IndexWriterMemoryList(new FileWriterFileLongChannel()), new KeywordTableMemoryList());
         column.create(list);
         column.save(new FileWriterWritableByteChannel());
         columnTable.addColumn(column);

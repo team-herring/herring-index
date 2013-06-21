@@ -1,12 +1,12 @@
 package org.herring.analysis.dispacher;
 
-import org.herring.index.column.Column;
+import org.herring.file.writer.FileWriterFileLongChannel;
+import org.herring.index.column.ColumnString;
 import org.herring.index.column.index.writer.IndexWriter;
 import org.herring.index.column.index.writer.IndexWriterMemoryList;
 import org.herring.index.column.keyword.KeywordTable;
 import org.herring.index.column.keyword.KeywordTableMemoryList;
 import org.herring.context.ColumnContext;
-import org.herring.file.writer.FileWriterFileChannel;
 
 import java.util.List;
 
@@ -24,12 +24,12 @@ public class ColumnDispacherSimple implements ColumnDispacher<String> {
         //send column
     }
 
-    private Column createColumn(String date, String name, List<String> datas) throws Exception {
-        IndexWriter indexWriter = new IndexWriterMemoryList(new FileWriterFileChannel());
+    private ColumnString createColumn(String date, String name, List<String> datas) throws Exception {
+        IndexWriter indexWriter = new IndexWriterMemoryList(new FileWriterFileLongChannel());
         KeywordTable keywordTable = new KeywordTableMemoryList();
-        Column column = new Column(date, name, indexWriter, keywordTable);
+        ColumnString column = new ColumnString(date, name, indexWriter, keywordTable);
         column.create(datas);
-        column.save(new FileWriterFileChannel());
+        column.save(new FileWriterFileLongChannel());
         return column;
     }
 }

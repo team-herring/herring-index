@@ -2,7 +2,7 @@ package org.herring.index.column.index.writer;
 
 import org.apache.log4j.Logger;
 import org.herring.file.writer.FileWriter;
-import org.herring.index.column.index.Index;
+import org.herring.index.column.index.IndexString;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -14,16 +14,16 @@ import java.util.List;
  * @author Youngdeok Kim
  * @since 1.0
  */
-public class IndexWriterSimple implements IndexWriter {
+public class IndexWriterSimple implements IndexWriter<String> {
     private static final Logger LOG = Logger.getLogger(IndexWriterSimple.class);
-    private List<Index> keywords;
-    private HashMap<String, Index> keywordMap;
+    private List<IndexString> keywords;
+    private HashMap<String, IndexString> keywordMap;
     private FileWriter writer;
     private long currentIndex;
 
 
     public IndexWriterSimple(FileWriter writer) {
-        this.keywordMap = new HashMap<String, Index>();
+        this.keywordMap = new HashMap<String, IndexString>();
         this.writer = writer;
         LOG.info("created IndexWriterSimple");
     }
@@ -39,14 +39,14 @@ public class IndexWriterSimple implements IndexWriter {
     public long appendKeyWord(String keyword) throws Exception {
         currentIndex = writer.appendLine(keyword);
         if (!keywordMap.containsKey(keyword))
-            keywordMap.put(keyword, new Index(keyword, currentIndex));
+            keywordMap.put(keyword, new IndexString(keyword, currentIndex));
         else
             keywordMap.get(keyword).appendIndex(currentIndex);
         return currentIndex;
     }
 
     @Override
-    public Index findIndexByKeyWord(String word) {
+    public IndexString findIndexByKeyWord(String word) {
         return keywordMap.get(word);
     }
 

@@ -1,6 +1,6 @@
 package org.herring.index.column;
 
-import org.herring.index.column.index.Index;
+import org.herring.index.column.index.IndexString;
 import org.herring.index.column.index.writer.IndexWriter;
 import org.herring.index.column.index.writer.IndexWriterMemoryList;
 import org.herring.index.column.keyword.KeywordTableMemoryList;
@@ -24,7 +24,7 @@ import static org.mockito.Mockito.when;
  * @since 1.0
  */
 public class ColumnTest {
-    private Column column;
+    private ColumnString column;
     private List<String> datas;
     private String directory = "test";
     private String name = "test";
@@ -38,7 +38,7 @@ public class ColumnTest {
         datas.add("POST");
         indexWriter = mock(IndexWriterMemoryList.class);
         keywordTable = mock(KeywordTableMemoryList.class);
-        column = new Column(directory, name, indexWriter, keywordTable);
+        column = new ColumnString(directory, name, indexWriter, keywordTable);
     }
 
     @Test
@@ -56,7 +56,7 @@ public class ColumnTest {
         when(indexWriter.save(directory, name)).thenReturn(true);
         column.create(datas);
 
-        Index index = new Index(keyword, (long)0);
+        IndexString index = new IndexString(keyword, (long)0);
         when(keywordTable.get(keyword)).thenReturn((long) 0);
         when(indexWriter.findIndexByKeyWord(""+0)).thenReturn(index);
 
