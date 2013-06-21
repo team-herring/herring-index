@@ -29,6 +29,11 @@ public class IndexWriterSimple implements IndexWriter<String> {
     }
 
     @Override
+    public void load(List<String> values) {
+
+    }
+
+    @Override
     public boolean save(String directory, String name) throws IOException {
         boolean success = writer.createFile(directory, name);
         LOG.info("IndexWriterSimple load");

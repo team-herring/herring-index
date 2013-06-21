@@ -16,6 +16,6 @@ public interface KeywordTable {
     String get(Long key);
     Long get(String keyword);
     void save(FileWriter fileWriter, String directory, String fileName) throws IOException;
-    void load(FileReader fileReader, String directory, String fileName) throws IOException;
+    void load(FileReader fileReader) throws Exception;
     void discard();
 }

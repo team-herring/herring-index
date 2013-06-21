@@ -25,10 +25,6 @@ public class KeywordTableMemoryList implements KeywordTable {
         LOG.info("created KeywordTableMemoryList");
         this.keywords = new ArrayList<String>();
     }
-    public KeywordTableMemoryList(List<String> keywords) {
-            LOG.info("created KeywordTableMemoryList");
-            this.keywords = keywords;
-    }
 
     @Override
     public Long appendKeyword(String keyword) {
@@ -77,8 +73,9 @@ public class KeywordTableMemoryList implements KeywordTable {
     }
 
     @Override
-    public void load(FileReader fileReader, String directory, String fileName) throws IOException {
-
+    public void load(FileReader fileReader) throws Exception {
+        List load = fileReader.load();
+        this.keywords = load;
     }
 
     @Override

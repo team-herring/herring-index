@@ -79,7 +79,7 @@ public class CoumnLogTest {
 
         System.out.println(TimeUnit.MILLISECONDS.toSeconds(end2 -start2));
 
-
+        long start3 = System.currentTimeMillis();
 //        createColumn("20130430", "date", date);
 //        createColumn("20130430", "time", time);
 //        createColumn("20130430", "c3", c3);
@@ -97,7 +97,7 @@ public class CoumnLogTest {
 //        createColumn("20130430", "c13", c13);
 //        createColumn("20130430", "c14", c14);
 
-        long start3 = System.currentTimeMillis();
+
         Column time1 = createColumn("20130430", "time", time);
         long end3 = System.currentTimeMillis();
                 System.out.println(TimeUnit.MILLISECONDS.toSeconds(end3 - start3));

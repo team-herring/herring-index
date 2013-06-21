@@ -1,10 +1,15 @@
 package org.herring.index.column;
 
+import org.herring.context.ColumnConfig;
+import org.herring.file.reader.FileReaderFileLongChannel;
+import org.herring.file.reader.FileReaderFileStringChannel;
 import org.herring.file.writer.FileWriter;
 import org.herring.index.column.index.Index;
+import org.herring.index.column.index.reader.IndexReaderLong;
 import org.herring.index.column.index.writer.IndexWriter;
 import org.herring.index.column.keyword.KeywordTable;
 
+import java.io.File;
 import java.util.List;
 
 /**
@@ -27,7 +32,13 @@ public class ColumnLong implements Column {
     }
 
     @Override
-    public void load() {
+    public void load() throws Exception {
+        String path = directory+"/"+ name;
+        this.keywordTable.load(new FileReaderFileStringChannel(new File(path + ColumnConfig.EXTENDS_KEYWORD_NAME)));
+
+        IndexReaderLong ir = new IndexReaderLong();
+        List<Long> values = ir.load(new FileReaderFileLongChannel(new File(path + ColumnConfig.EXTENDS_INDEX_NAME)));
+        this.indexWriter.load(values);
     }
 
     @Override

@@ -33,9 +33,9 @@ public class FileReaderFileLongChannel implements FileReader<Long> {
     public List<Long> load() throws Exception {
         List<Long> results = new ArrayList<Long>();
         while(true){
-            Long data = raf.readLong();
-            if (data == null)
+            if (raf.getFilePointer() == raf.length())
                 break;
+            Long data = raf.readLong();
             results.add(data);
         }
         return results;

@@ -29,8 +29,15 @@ public class IndexWriterMemoryLongList implements IndexWriter<Long> {
         this.writer = writer;
         LOG.info("created IndexWriterMemoryList");
     }
-    public IndexWriterMemoryLongList(List<IndexLong> indexs) {
-            this.indexs = indexs;
+
+    public void load(List<Long> values) {
+        for (int i = 0; i < values.size(); i++) {
+            Index index = findKeyword(values.get(i));
+            if (index == null)
+                indexs.add(new IndexLong(values.get(i), (long)i));
+            else
+                index.appendIndex((long) i);
+        }
     }
 
     @Override

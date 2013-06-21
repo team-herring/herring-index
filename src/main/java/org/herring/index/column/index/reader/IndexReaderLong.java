@@ -10,6 +10,9 @@ import java.util.List;
  * @author Youngdeok Kim
  * @since 1.0
  */
-public interface IndexReader<T> {
-    public List<T> load(FileReader fileReader) throws Exception;
+public class IndexReaderLong implements IndexReader<Long> {
+    @Override
+    public List<Long> load(FileReader fileReader) throws Exception {
+        return fileReader.load();
+    }
 }

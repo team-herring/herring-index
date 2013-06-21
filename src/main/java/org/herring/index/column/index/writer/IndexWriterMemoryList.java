@@ -31,11 +31,17 @@ public class IndexWriterMemoryList implements IndexWriter<String> {
     }
 
     @Override
+    public void load(List<String> values) {
+
+    }
+
+    @Override
     public boolean save(String directory, String name) throws IOException {
         boolean success = writer.createFile(directory, name + ColumnConfig.EXTENDS_INDEX_NAME);
         LOG.info("IndexWriterMemoryList load");
         return success;
     }
+
 
     @Override
     public long appendKeyWord(String word) throws Exception {
