@@ -2,7 +2,6 @@ package org.herring;
 
 import org.herring.index.HerringColumnIndex;
 import org.herring.index.column.ColumnTable;
-import org.herring.index.row.Row;
 import org.herring.index.row.RowTable;
 import org.herring.utils.FileUtils;
 import org.junit.Before;
@@ -11,10 +10,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
-
-import static junit.framework.TestCase.assertNotNull;
 
 /**
  * Description.
@@ -56,22 +52,11 @@ public class HerringColumnIndexTest {
     public void find() throws Exception {
         testAddList();
 
-        String word = "00:00:50";
-        List<Long> indexs = herringColumnIndex.find(word);
-        assertNotNull(indexs);
-        for (Long index : indexs) {
-            System.out.println(index);
-        }
-    }
-
-    @Test
-    public void merge() {
-        herringColumnIndex.merge();
-    }
-
-    @Test
-    public void findRows() {
-        String word = "";
-        List<Row> rows = herringColumnIndex.findRows(word);
+//        String word = "00:00:50";
+//        List<Long> indexs = herringColumnIndex.find(word);
+//        assertNotNull(indexs);
+//        for (Long index : indexs) {
+//            System.out.println(index);
+//        }
     }
 }
