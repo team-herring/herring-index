@@ -26,7 +26,7 @@ public class ColumnTable {
         return columns.get(index);
     }
 
-    public List<Long> find(String word) {
+    public List<Long> find(String word, String date) {
         if (word.equals(""))
             return null;
 
