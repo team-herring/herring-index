@@ -52,7 +52,7 @@ public class HerringColumnIndex {
         List<String> columnNames = getColumnNames();
         for (String name : columnNames) {
             Column otherColumn = findAndCreate(name);
-            resultMap.put(columnName, column.findWords(indexs));
+            resultMap.put(columnName, otherColumn.findWords(indexs));
         }
         return resultMap;
     }
