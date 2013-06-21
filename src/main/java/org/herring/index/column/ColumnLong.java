@@ -64,6 +64,18 @@ public class ColumnLong implements Column {
     }
 
     @Override
+    public List<String> findWords(List<Long> index) throws Exception {
+        String path = directory+"/"+ name;
+        if (this.keywordTable == null){
+            this.keywordTable.load(new FileReaderFileStringChannel(new File(path + ColumnConfig.EXTENDS_KEYWORD_NAME)));
+        }
+        FileReaderFileLongChannel fr = new FileReaderFileLongChannel(new File(path + ColumnConfig.EXTENDS_INDEX_NAME));
+        List<Long> keywords = fr.findByIndex(index);
+
+        return this.keywordTable.get(keywords);
+    }
+
+    @Override
     public void save(FileWriter fileWriter) throws Exception {
         keywordTable.save(fileWriter, directory, name);
     }

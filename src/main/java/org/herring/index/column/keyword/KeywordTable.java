@@ -4,6 +4,7 @@ import org.herring.file.reader.FileReader;
 import org.herring.file.writer.FileWriter;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * Description.
@@ -13,6 +14,7 @@ import java.io.IOException;
  */
 public interface KeywordTable {
     Long appendKeyword(String keyword);
+    List<String> get(List<Long> keys);
     String get(Long key);
     Long get(String keyword);
     void save(FileWriter fileWriter, String directory, String fileName) throws IOException;

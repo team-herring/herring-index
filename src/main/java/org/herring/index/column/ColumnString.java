@@ -53,6 +53,11 @@ public class ColumnString implements Column {
     }
 
     @Override
+    public List<String> findWords(List<Long> index) throws Exception {
+        return null;
+    }
+
+    @Override
     public void save(FileWriter fileWriter) throws Exception {
         keywordTable.save(fileWriter, directory, name);
     }

@@ -32,7 +32,7 @@ public class KeywordTableMemoryList implements KeywordTable {
         for (int i = 0; i < keywords.size(); i++) {
             String target = keywords.get(i);
             boolean isContains = target.equals(keyword);
-            if (isContains){
+            if (isContains) {
                 result = target;
                 index = i;
                 break;
@@ -47,9 +47,17 @@ public class KeywordTableMemoryList implements KeywordTable {
         return (long) index;
     }
 
+    public List<String> get(List<Long> keys) {
+        List<String> results = new ArrayList<String>();
+        for (Long key : keys) {
+            results.add(keywords.get(key.intValue()));
+        }
+        return results;
+    }
+
     @Override
     public String get(Long key) {
-        if (keywords.size()-1 < key)
+        if (keywords.size() - 1 < key)
             return null;
         return keywords.get(key.intValue());
     }

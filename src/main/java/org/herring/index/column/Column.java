@@ -12,9 +12,10 @@ import java.util.List;
  */
 public interface Column {
     void load() throws Exception;
-    boolean create(List<String> datas) throws Exception;
-    List findIndexs(String word);
     void save(FileWriter fileWriter) throws Exception;
+    boolean create(List<String> datas) throws Exception;
+    List<Long> findIndexs(String word);
+    List<String> findWords(List<Long> index)throws Exception;
     String getName();
     void close();
 }
