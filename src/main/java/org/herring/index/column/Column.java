@@ -12,12 +12,8 @@ import java.util.List;
  */
 public interface Column {
     boolean create(List<String> datas) throws Exception;
-
     List findIndexs(String word);
-
     void save(FileWriter fileWriter) throws Exception;
-
     String getName();
-
     void close();
 }
