@@ -19,7 +19,7 @@ public class FileWriterFileLongChannel implements FileWriter<Long>{
     private File file;
     private RandomAccessFile raf;
     private long position;
-    private long appendRowSize = 1;
+    private long appendRowSize = 0;
     private FileChannel channel;
 
     public FileWriterFileLongChannel() {
