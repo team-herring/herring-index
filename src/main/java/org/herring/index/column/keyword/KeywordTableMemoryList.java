@@ -7,7 +7,6 @@ import org.herring.file.writer.FileWriter;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -58,10 +57,17 @@ public class KeywordTableMemoryList implements KeywordTable {
 
     @Override
     public Long get(String keyword) {
-        int i = Collections.binarySearch(keywords, keyword);
-        if (i < 0)
-            return null;
-        return (long) i;
+        for (int i = 0; i < keywords.size(); i++) {
+            String str = keywords.get(i);
+
+            if (keyword.equals(str))
+                return (long) i;
+        }
+        return null;
+//        int i = Collections.binarySearch(keywords, keyword);
+//        if (i < 0)
+//            return null;
+//        return (long) i;
     }
 
     @Override

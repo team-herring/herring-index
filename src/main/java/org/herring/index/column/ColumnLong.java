@@ -56,6 +56,7 @@ public class ColumnLong implements Column {
     @Override
     public List<Long> findIndexs(String word) {
         Long wordMeaning= keywordTable.get(word);
+
         Index index = indexWriter.findIndexByKeyWord(wordMeaning);
         if (index == null)
             return null;

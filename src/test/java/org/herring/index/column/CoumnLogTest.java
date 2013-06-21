@@ -80,22 +80,22 @@ public class CoumnLogTest {
         System.out.println(TimeUnit.MILLISECONDS.toSeconds(end2 -start2));
 
         long start3 = System.currentTimeMillis();
-//        createColumn("20130430", "date", date);
+        createColumn("20130430", "date", date);
 //        createColumn("20130430", "time", time);
-//        createColumn("20130430", "c3", c3);
-//        createColumn("20130430", "ip", ip);
-//        createColumn("20130430", "method", method);
-//
-//        createColumn("20130430", "url", url);
-//        createColumn("20130430", "c6", c6);
-//        createColumn("20130430", "port", port);
-//        createColumn("20130430", "c8", c8);
-//        createColumn("20130430", "serverip", serverip);
-//
-//        createColumn("20130430", "client", client);
-//        createColumn("20130430", "state", state);
-//        createColumn("20130430", "c13", c13);
-//        createColumn("20130430", "c14", c14);
+        createColumn("20130430", "c3", c3);
+        createColumn("20130430", "ip", ip);
+        createColumn("20130430", "method", method);
+
+        createColumn("20130430", "url", url);
+        createColumn("20130430", "c6", c6);
+        createColumn("20130430", "port", port);
+        createColumn("20130430", "c8", c8);
+        createColumn("20130430", "serverip", serverip);
+
+        createColumn("20130430", "client", client);
+        createColumn("20130430", "state", state);
+        createColumn("20130430", "c13", c13);
+        createColumn("20130430", "c14", c14);
 
 
         Column time1 = createColumn("20130430", "time", time);
