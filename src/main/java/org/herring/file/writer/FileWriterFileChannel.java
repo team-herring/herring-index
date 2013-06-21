@@ -20,6 +20,7 @@ public class FileWriterFileChannel implements FileWriter{
     private File file;
     private RandomAccessFile raf;
     private long position;
+    private long appendRowSize = 1;
     private FileChannel channel;
 
     public FileWriterFileChannel() {
@@ -62,7 +63,7 @@ public class FileWriterFileChannel implements FileWriter{
             channel = raf.getChannel();
         }
         channel.write(buf);
-        return channel.position();
+        return appendRowSize++;
     }
 
     @Override

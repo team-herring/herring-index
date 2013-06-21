@@ -7,6 +7,7 @@ import org.herring.index.column.index.Index;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -38,22 +39,21 @@ public class IndexWriterMemoryList implements IndexWriter {
 
     @Override
     public long appendKeyWord(String word) throws Exception {
-        writer.appendLine(word);
+        long lineNumber = writer.appendLine(word);
 
         Index index = findKeyword(word);
         if (index == null)
-            indexs.add(new Index(word, currentIndex.incrementAndGet()));
+            indexs.add(new Index(word, lineNumber));
         else
-            index.appendIndex(currentIndex.incrementAndGet());
+            index.appendIndex(lineNumber);
         return currentIndex.get();
     }
 
     private Index findKeyword(String word) {
-        for (Index index : indexs) {
-            if (index.getKeyword().equals(word))
-                return index;
-        }
-        return null;
+        int index = Collections.binarySearch(indexs, word);
+        if (index <= 0)
+            return null;
+        return indexs.get(index);
     }
 
     @Override

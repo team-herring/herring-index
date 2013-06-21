@@ -11,7 +11,7 @@ import java.util.List;
  * @author Youngdeok Kim
  * @since 1.0
  */
-public class Index implements Serializable{
+public class Index implements Serializable, Comparable<String>{
     /**
      * index의 단어
      */
@@ -27,14 +27,18 @@ public class Index implements Serializable{
         this.indexs.add(index);
     }
 
-    public void appendIndex(Long index){
-        if ( !this.indexs.contains(index))
+    public void appendIndex(Long index) {
+        if (!this.indexs.contains(index))
             this.indexs.add(index);
+//        int i = Collections.binarySearch(indexs, index);
+//             if (i < 0)
+//                 this.indexs.add(index);
     }
 
     public String getKeyword() {
         return keyword;
     }
+
     public List<Long> getIndexs() {
         return indexs;
     }
@@ -54,5 +58,11 @@ public class Index implements Serializable{
     @Override
     public int hashCode() {
         return keyword != null ? keyword.hashCode() : 0;
+    }
+
+
+    @Override
+    public int compareTo(String o) {
+        return keyword.compareTo(o);
     }
 }

@@ -1,6 +1,7 @@
 package org.herring.index.column;
 
 import org.herring.file.writer.FileWriterFileChannel;
+import org.herring.file.writer.FileWriterWritableByteChannel;
 import org.herring.index.column.index.writer.IndexWriter;
 import org.herring.index.column.index.writer.IndexWriterMemoryList;
 import org.herring.index.column.keyword.KeywordTable;
@@ -11,8 +12,10 @@ import org.junit.Test;
 import java.io.File;
 import java.io.FileInputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Description.
@@ -23,6 +26,7 @@ import java.util.Scanner;
 public class CoumnLogTest {
     @Test
     public void test() throws Exception {
+        long start = System.currentTimeMillis();
         Scanner scanner = new Scanner(new FileInputStream("logs/ex130415.log"));
 
         FileUtils.removeDirectory(new File("20130430"));
@@ -44,6 +48,9 @@ public class CoumnLogTest {
         ArrayList<String> c13 = new ArrayList<String>();
         ArrayList<String> c14 = new ArrayList<String>();
 
+
+
+        long start2 = System.currentTimeMillis();
         while(scanner.hasNext()){
             String row = scanner.nextLine();
             String[] coulumns = row.split(" ");
@@ -68,34 +75,43 @@ public class CoumnLogTest {
             c14.add(coulumns[13]);
         }
         scanner.close();
+        long end2 = System.currentTimeMillis();
 
-        createColumn("20130430", "date", date);
-        createColumn("20130430", "time", time);
-        createColumn("20130430", "c3", c3);
-        createColumn("20130430", "ip", ip);
-        createColumn("20130430", "method", method);
-
-        createColumn("20130430", "url", url);
-        createColumn("20130430", "c6", c6);
-        createColumn("20130430", "port", port);
-        createColumn("20130430", "c8", c8);
-        createColumn("20130430", "serverip", serverip);
-
-        createColumn("20130430", "client", client);
-        createColumn("20130430", "state", state);
-        createColumn("20130430", "c13", c13);
-        createColumn("20130430", "c14", c14);
+        System.out.println(TimeUnit.MILLISECONDS.toSeconds(end2 -start2));
 
 
-//        HashMap<String, Column> map = new HashMap<String, Column>();
-//        map.put("time", createColumn("20130430", "time", time));
+//        createColumn("20130430", "date", date);
+//        createColumn("20130430", "time", time);
+//        createColumn("20130430", "c3", c3);
+//        createColumn("20130430", "ip", ip);
+//        createColumn("20130430", "method", method);
+//
+//        createColumn("20130430", "url", url);
+//        createColumn("20130430", "c6", c6);
+//        createColumn("20130430", "port", port);
+//        createColumn("20130430", "c8", c8);
+//        createColumn("20130430", "serverip", serverip);
+//
+//        createColumn("20130430", "client", client);
+//        createColumn("20130430", "state", state);
+//        createColumn("20130430", "c13", c13);
+//        createColumn("20130430", "c14", c14);
+
+        long start3 = System.currentTimeMillis();
+        Column time1 = createColumn("20130430", "time", time);
+        long end3 = System.currentTimeMillis();
+                System.out.println(TimeUnit.MILLISECONDS.toSeconds(end3 - start3));
+
+        HashMap<String, Column> map = new HashMap<String, Column>();
+        map.put("time", time1);
 //        map.put("ip", createColumn("20130430", "ip", ip));
 //        map.put("date", createColumn("20130430", "date", date));
 //        map.put("method", createColumn("20130430", "method", method));
 
 
-//        Column column = map.get("time");
-//        List<Long> indexs = column.findIndexs("00:00:50");
+        Column column = map.get("time");
+        List<Long> indexs = column.findIndexs("00:00:50");
+        System.out.println(indexs);
 //        for (Long index : indexs) {
 //            System.out.println(index);
 //        }
@@ -105,6 +121,14 @@ public class CoumnLogTest {
 //            String result = reader.findByIndex(index);
 //            System.out.println(result);
 //        }
+        long end = System.currentTimeMillis();
+
+        System.out.println(end -start);
+
+    }
+    @Test
+    public void a(){
+
     }
 
     private Column createColumn(String date, String name, List<String> datas) throws Exception {
@@ -112,7 +136,7 @@ public class CoumnLogTest {
         KeywordTable keywordTable = new KeywordTableMemoryList();
         Column column = new Column(date, name, indexWriter, keywordTable);
         column.create(datas);
-        column.save(new FileWriterFileChannel());
+        column.save(new FileWriterWritableByteChannel());
         return column;
     }
 }
