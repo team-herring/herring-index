@@ -4,18 +4,21 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>herring_index</groupId>
-    <artifactId>herring_index</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>org.herring</groupId>
+    <artifactId>herring-index</artifactId>
+    <version>0.1-SNAPSHOT</version>
 
     <properties>
+        <github.global.server>github</github.global.server>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <commons.lang.version>2.5</commons.lang.version>
         <commons.io.version>2.0.1</commons.io.version>
         <commons.cli.version>1.2</commons.cli.version>
         <commons.exec.version>1.1</commons.exec.version>
-        <hadoop.version>1.0.3</hadoop.version>
-        <pig.version>0.10.0</pig.version>
+        <maven.surefire.version>2.14.1</maven.surefire.version>
+        <maven.source.version>2.1.2</maven.source.version>
+        <maven.deploy.version>2.7</maven.deploy.version>
+        <github.site.version>0.8</github.site.version>
         <junit.version>4.8.2</junit.version>
     </properties>
 
@@ -39,43 +42,86 @@
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-antrun-plugin</artifactId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>${maven.surefire.version}</version>
+                <configuration>
+                    <systemProperties>
+                        <user.timezone>GMT</user.timezone>
+                    </systemProperties>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>${maven.source.version}</version>
                 <executions>
                     <execution>
-                        <id>ftp</id>
-                        <phase>install</phase>
                         <goals>
-                            <goal>run</goal>
+                            <goal>jar-no-fork</goal>
                         </goals>
-                        <configuration>
-                            <tasks>
-                                <ftp server=""
-                                     remotedir=""
-                                     userid=""
-                                     password="">
-                                    <fileset dir="${basedir}/target">
-                                        <include name="${project.build.finalName}.${packaging}"/>
-                                    </fileset>
-                                </ftp>
-                            </tasks>
-                        </configuration>
                     </execution>
                 </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>ant</groupId>
-                        <artifactId>ant-commons-net</artifactId>
-                        <version>1.6.5</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>commons-net</groupId>
-                        <artifactId>commons-net</artifactId>
-                        <version>1.4.1</version>
-                    </dependency>
-                </dependencies>
+            </plugin>
+            <plugin>
+                <artifactId>maven-deploy-plugin</artifactId>
+                <version>${maven.deploy.version}</version>
+                <configuration>
+                    <altDeploymentRepository>internal.repo::default::file://${project.build.directory}/mvn-repo
+                    </altDeploymentRepository>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.github.github</groupId>
+                <artifactId>site-maven-plugin</artifactId>
+                <version>${github.site.version}</version>
+                <configuration>
+                    <message>Maven artifacts for ${project.artifactId} ${project.version}</message>
+                    <noJekyll>true</noJekyll>
+                    <merge>true</merge>
+                    <outputDirectory>${project.build.directory}/mvn-repo</outputDirectory>
+                    <branch>refs/heads/mvn-repo</branch>
+                    <includes>
+                        <include>**/*</include>
+                    </includes>
+                    <repositoryName>team-herring.github.io</repositoryName>
+                    <repositoryOwner>team-herring</repositoryOwner>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>site</goal>
+                        </goals>
+                        <phase>deploy</phase>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
+    <repositories>
+        <repository>
+            <id>github</id>
+            <name>GitHub Herring Project Maven Repository</name>
+            <url>https://raw.github.com/team-herring/team-herring.github.io/mvn-repo</url>
+            <snapshots>
+                <enabled>true</enabled>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+    </repositories>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Herring Project Maven Repository</name>
+            <url>https://raw.github.com/team-herring/team-herring.github.io/mvn-repo</url>
+        </repository>
+        <snapshotRepository>
+            <id>github</id>
+            <name>GitHub Herring Project Maven Repository</name>
+            <url>https://raw.github.com/team-herring/team-herring.github.io/mvn-repo</url>
+        </snapshotRepository>
+    </distributionManagement>
 
     <dependencies>
 
